@@ -97,16 +97,35 @@ contract Vote {
         });
         nextCandidateId++;
     }
-
+    
+    /**
+     * @notice Check if the given candidate address is already registered as a candidate in the system.
+     * @param _person The address of the candidate to be checked.
+     * @return bool True if the candidate has not been registered, False otherwise.
+     */
     function isCandidateNotRegistered(
         address _person
-    ) internal view returns (bool) {}
+    ) internal view returns (bool) {
+        for(uint i = 1; i < nextCandidateId; i++){
+            if(candidateDetails[i].candidateAddress == _person){
+                return false;
+            }
+        }
+        return true;
+    }
 
     function getCandidateList() public view returns (Candidate[] memory) {}
 
     function isVoterNotRegistered(
         address _person
-    ) internal view returns (bool) {}
+    ) internal view returns (bool) {
+          for(uint i = 1; i < nextVoterId; i++){
+            if(voterDetails[i].voterAddress == _person){
+                return false;
+            }
+        }
+        return true;
+    }
 
     function registerVoter(
         string calldata _name,
